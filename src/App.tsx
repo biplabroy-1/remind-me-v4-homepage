@@ -14,6 +14,7 @@ import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import AboutUs from "./aboutus";
 import icon from './assets/logo.svg'
+import { Analytics } from "@vercel/analytics/react"
 
 const Button: React.FC<{
   children: React.ReactNode;
@@ -64,6 +65,7 @@ export default function App() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+      <Analytics />
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg bg-gradient-to-r from-gray-900/80 to-gray-800/80 shadow-lg">
         <div className="container mx-auto px-4 lg:px-6 h-20 flex items-center justify-between max-w-7xl">
           <p className="flex items-center justify-center group cursor-pointer">
