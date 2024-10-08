@@ -13,6 +13,7 @@ import image from "./assets/screenshot.png";
 import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import AboutUs from "./aboutus";
+import icon from './assets/logo.svg'
 
 const Button: React.FC<{
   children: React.ReactNode;
@@ -58,7 +59,6 @@ export default function App() {
   };
 
   const toggleAboutUs = () => {
-    
     setShowAboutUs(!showAboutUs);
   };
 
@@ -68,7 +68,7 @@ export default function App() {
         <div className="container mx-auto px-4 lg:px-6 h-20 flex items-center justify-between max-w-7xl">
           <p className="flex items-center justify-center group cursor-pointer">
             <Smartphone className="h-8 w-8 mr-3 text-blue-400 group-hover:text-blue-300 transition-colors duration-300" />
-            <span className="font-bold text-xl">Remind Me</span>
+            <img src={icon} alt="Icon" />
           </p>
           <nav className="flex gap-6 sm:gap-8 justify-center items-center">
             {!showAboutUs && (
@@ -132,7 +132,7 @@ export default function App() {
                           Download Now
                           <Download className="ml-2 h-5 w-5" />
                         </Button>
-                        <Button variant="outline" size="lg">
+                        <Button variant="outline" size="lg" onClick={toggleAboutUs}>
                           Learn More
                           <ArrowRight className="ml-2 h-5 w-5" />
                         </Button>
@@ -232,7 +232,7 @@ export default function App() {
               </section>
               <section
                 ref={downloadRef}
-                className="w-full py-12 md:py-24 lg:py-32"
+                className="w-full h-[70vh] flex justify-center items-center py-12 md:py-24 lg:py-32"
               >
                 <div className="container mx-auto px-4 md:px-6 max-w-7xl">
                   <div className="flex flex-col items-center justify-center space-y-4 text-center">
