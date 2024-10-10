@@ -10,7 +10,7 @@ import {
   Volume2,
 } from "lucide-react";
 import image from "./assets/screenshot.png";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import AboutUs from "./aboutus";
 import icon from './assets/logo.svg'
@@ -46,6 +46,22 @@ export default function App() {
   const featuresRef = useRef<HTMLElement>(null);
   const downloadRef = useRef<HTMLElement>(null);
   const [showAboutUs, setShowAboutUs] = useState(false);
+  const [downloadUrl, setDownloadUrl] = useState("");
+  const [version, setVersion] = useState("");
+
+  useEffect(() => {
+    fetch("https://download.globaltfn.tech/version.json")
+      .then((response) => response.json())
+      .then((data) => {
+        setVersion(data.version);
+        // Default to arm64-v8a, but you might want to detect the device's architecture
+        const arm64Apk = data.apks.find((apk: { abi: string; }) => apk.abi === "arm64-v8a");
+        if (arm64Apk) {
+          setDownloadUrl(arm64Apk.url);
+        }
+      })
+      .catch((error) => console.error("Error fetching version info:", error));
+  }, []);
 
   const scrollToFeatures = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -62,6 +78,8 @@ export default function App() {
   const toggleAboutUs = () => {
     setShowAboutUs(!showAboutUs);
   };
+
+  
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
@@ -126,15 +144,16 @@ export default function App() {
                       <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center lg:justify-start">
                         <Button
                           size="lg"
-                          onClick={() =>
-                            (window.location.href =
-                              "https://github.com/biplabroy-1/remind-me-v4/releases/download/last_test/app-arm64-v8a-release.apk")
-                          }
+                          onClick={() => (window.location.href = downloadUrl)}
                         >
-                          Download Now
+                          Download Now (v{version})
                           <Download className="ml-2 h-5 w-5" />
                         </Button>
-                        <Button variant="outline" size="lg" onClick={toggleAboutUs}>
+                        <Button
+                          variant="outline"
+                          size="lg"
+                          onClick={toggleAboutUs}
+                        >
                           Learn More
                           <ArrowRight className="ml-2 h-5 w-5" />
                         </Button>
@@ -250,12 +269,9 @@ export default function App() {
                     <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center">
                       <Button
                         size="lg"
-                        onClick={() =>
-                          (window.location.href =
-                            "https://github.com/biplabroy-1/remind-me-v4/releases/download/last_test/app-arm64-v8a-release.apk")
-                        }
+                        onClick={() => (window.location.href = downloadUrl)}
                       >
-                        Download for Android
+                        Download for Android (v{version})
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
                       <Button size="lg" variant="outline" disabled={true}>
