@@ -13,8 +13,9 @@ import image from "./assets/screenshot.png";
 import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import AboutUs from "./aboutus";
-import icon from './assets/logo.svg'
+import logo from './assets/logo.svg'
 import { Analytics } from "@vercel/analytics/react"
+import { Helmet } from "react-helmet";
 
 const Button: React.FC<{
   children: React.ReactNode;
@@ -84,11 +85,34 @@ export default function App() {
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
       <Analytics />
+      <Helmet>
+        {/* Title of the page */}
+        <title>Remind Me || The ultimate college reminder for you</title>
+
+        {/* Description of the page */}
+        <meta name="description" content="Remind Me is the ultimate college reminder app to keep you on track with your schedule, assignments, and more." />
+
+        {/* Keywords for SEO */}
+        <meta name="keywords" content="college, reminder, app, schedule, assignments, reminders, education" />
+
+        {/* Author of the page */}
+        <meta name="author" content="Biplab Roy" />
+
+        {/* Open Graph tags for social media sharing */}
+        <meta property="og:title" content="Remind Me || The ultimate college reminder for you" />
+        <meta property="og:description" content="Remind Me helps you keep track of your college assignments and schedule so you never miss a deadline." />
+        <meta property="og:image" content="icon.svg" /> {/* Replace with actual image URL */}
+        <meta property="og:url" content="https://remindme.globaltfn.tech" /> {/* Replace with your page URL */}
+
+        {/* Canonical URL to avoid duplicate content */}
+        <link rel="canonical" href="https://remindme.globaltfn.tech" /> {/* Replace with your page URL */}
+      </Helmet>
+
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg bg-gradient-to-r from-gray-900/80 to-gray-800/80 shadow-lg">
         <div className="container mx-auto px-4 lg:px-6 h-20 flex items-center justify-between max-w-7xl">
           <p className="flex items-center justify-center group cursor-pointer">
             <Smartphone className="h-8 w-8 mr-3 text-blue-400 group-hover:text-blue-300 transition-colors duration-300" />
-            <img src={icon} alt="Icon" />
+            <img src={logo} alt="Icon" />
           </p>
           <nav className="flex gap-6 sm:gap-8 justify-center items-center">
             {!showAboutUs && (
